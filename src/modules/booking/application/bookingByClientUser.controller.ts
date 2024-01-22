@@ -3,8 +3,8 @@ import { Request } from 'express'
 import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common'
 import { RequestHelper } from 'helpers/request'
 import { EventService } from 'libraries/event'
-import { BookingDomainFacade } from 'modules/booking/domain'
 import { AuthenticationDomainFacade } from 'modules/authentication/domain'
+import { BookingDomainFacade } from 'modules/booking/domain'
 import { BookingApplicationEvent } from './booking.application.event'
 import { BookingCreateDto } from './booking.dto'
 
@@ -48,9 +48,16 @@ export class BookingByClientUserController {
     @Body() body: BookingCreateDto,
     @Req() request: Request,
   ) {
+    // Ensure that userId is not null
+    if (!userId) {
+      throw new Error("UserId is required");
+    }
+    
     const { user } = this.authenticationDomainFacade.getRequestPayload(request)
 
-    const valuesUpdated = { ...body, userId }
+    const valuesUpdated = { ...body, userId: userId };
+
+    //const valuesUpdated = { ...body, userId }
 
     const item = await this.bookingDomainFacade.create(valuesUpdated)
 

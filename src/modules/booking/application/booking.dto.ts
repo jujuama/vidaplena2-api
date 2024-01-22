@@ -1,9 +1,7 @@
 import {
-  IsBoolean,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
-  IsString,
+  IsString
 } from 'class-validator'
 
 export class BookingCreateDto {
@@ -35,7 +33,7 @@ export class BookingCreateDto {
 
 @IsString()
 
-@IsOptional()
+@IsNotEmpty()
   userId?: string
 
 }

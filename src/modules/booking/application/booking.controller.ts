@@ -11,11 +11,11 @@ import {
   Req,
 } from '@nestjs/common'
 import { EventService } from 'libraries/event'
+import { AuthenticationDomainFacade } from 'modules/authentication/domain'
 import {
   Booking,
   BookingDomainFacade,
 } from 'modules/booking/domain'
-import { AuthenticationDomainFacade } from 'modules/authentication/domain'
 import { RequestHelper } from '../../../helpers/request'
 import { BookingApplicationEvent } from './booking.application.event'
 import {
@@ -46,6 +46,9 @@ export class BookingController {
     @Req() request: Request,
   ) {
     const { user } = this.authenticationDomainFacade.getRequestPayload(request)
+
+    // Set userId in the DTO from the authenticated user
+    body.userId = user.id;
 
     const item = await this.bookingDomainFacade.create(body)
 
