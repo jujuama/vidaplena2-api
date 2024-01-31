@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   database:
-    container_name: msk3CF-vidaplena2-postgresql
+    container_name: vidaplena2-postgresql
     image: postgres
     restart: always
     environment:
@@ -11,7 +11,7 @@ services:
     ports:
       - '5442:5432'
   pgadmin:
-    container_name: msk3CF-vidaplena2-pgadmin4
+    container_name: vidaplena2-pgadmin4
     image: dpage/pgadmin4
     restart: always
     environment:
@@ -20,7 +20,7 @@ services:
     ports:
       - '5052:80'
   mail:
-    container_name: msk3CF-vidaplena2-mail
+    container_name: vidaplena2-mail
     image: axllent/mailpit
     restart: always
     volumes:
@@ -34,7 +34,7 @@ services:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
   redis:
-    container_name: msk3CF-vidaplena2-redis
+    container_name: vidaplena2-redis
     image: redis:latest
     restart: always
     environment:
